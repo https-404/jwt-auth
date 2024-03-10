@@ -1,7 +1,12 @@
 const express = require('express');
 const  routes  = require('./routes/index');
-const app = express();
+require('./db_connection/db.js');
 
+const dotenv = require("dotenv");
+
+
+const app = express();
+dotenv.config();
 const port = process.env.PORT || 3000;
 
 app.use('/api/v1', routes)
