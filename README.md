@@ -51,4 +51,4 @@ This project is licensed under the [MIT License](https://opensource.org/licenses
 
 - Author: Areesh Ali Abdullah
 - Email: areesh.192003@gmail.com
-- Website: [yourwebsite.com](https://areesh-ali.netlify.com)
+- Website: [areeshali.com](https://areesh-ali.netlify.com)
