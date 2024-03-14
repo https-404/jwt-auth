@@ -1,5 +1,5 @@
 const UserModel = require("../models/UserModel");
-//const bcrypt = require('brcypt');
+const bcrypt = require('bcrypt');
 
 module.exports = {
     // Create and Save a new User
@@ -7,10 +7,10 @@ module.exports = {
         res.send('Login Success');
     },
     //register user
-    register: (req, res) => {
+    register: async (req, res) => {
         console.log(req.body)
         const usermodel = UserModel.create(req.body);
-        //usermodel.password = await bcrypt.hash(req.body.password, 10);
+        usermodel.password = await bcrypt.hash(req.body.password, 10);
         try {
             const response = usermodel.save();
             response.password = undefined;
