@@ -8,20 +8,22 @@ module.exports = {
     },
     //register user
     register: async (req, res) => {
-        console.log(req.body)
+       
         const usermodel = UserModel.create(req.body);
         usermodel.password = await bcrypt.hash(req.body.password, 10);
+        //console.log("Password decrypted");
         try {
-            const response = usermodel.save();
-            response.password = undefined;
+            const response = (await usermodel).save();
+           // response.password = undefined;
+           console.log(response);
             return res.status(201).json({
                 message : "Successfully Registered!",
                 data: response
             })
         } catch (error) {
             return res.status(500).json({
-                message: "Server Side Internal Error!",
-                error   
+                message: error.message || "Some error occurred while creating the User.",
+                  
             })
         }
         res.send('Register Success');
