@@ -1,4 +1,4 @@
-const UserModel = require("../models/UserModel");
+const UserModel = require('../models/userModel');
 const bcrypt = require('bcrypt');
 
 module.exports = {
@@ -8,24 +8,14 @@ module.exports = {
     },
     //register user
     register: async (req, res) => {
-       
-        const usermodel = UserModel.create(req.body);
-        usermodel.password = await bcrypt.hash(req.body.password, 10);
-        //console.log("Password decrypted");
-        try {
-            const response = (await usermodel).save();
-           // response.password = undefined;
-           console.log(response);
-            return res.status(201).json({
-                message : "Successfully Registered!",
-                data: response
-            })
-        } catch (error) {
-            return res.status(500).json({
-                message: error.message || "Some error occurred while creating the User.",
-                  
-            })
+        const userModel = new UserModel(req.body);
+        userModel.password = await bcrypt.hash(req.body.password, 10);
+        try{
+            const response = await userModel.save();
+            response.password = undefined;
+            return res.status(201).json({message:'success', data: response});
+        }catch(err){
+            return res.status(500).json({message: 'error', err});
         }
-        res.send('Register Success');
     }
 };
